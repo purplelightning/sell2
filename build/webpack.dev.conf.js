@@ -8,9 +8,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+//新的mock数据方法--------------------------------
+const express = require('express')
+const app = express()
+var appData = require('../data.json')//加载本地数据文件
+var seller = appData.seller//获取对应的本地数据
+var goods = appData.goods
+var ratings = appData.ratings
+
+var apiRoutes = express.Router()
+app.use('/api', apiRoutes)
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: true})
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
@@ -21,8 +32,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: true,
     hot: true,
     compress: true,
-    host: process.env.HOST || config.dev.host,
-    port: process.env.PORT || config.dev.port,
+    host: process.env.HOST || config.dev.host,
+    port: process.env.PORT || config.dev.port,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay ? {
       warnings: false,
@@ -33,6 +44,29 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+
+    //新的配置--------------------------------------
+    before(app) {
+      app.get('/api/seller', (req, res) => {
+        res.json({
+          errno: 0,
+          data: seller
+        })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      }),
+        app.get('/api/goods', (req, res) => {
+          res.json({
+            errno: 0,
+            data: goods
+          })
+        }),
+        app.get('/api/ratings', (req, res) => {
+          res.json({
+            errno: 0,
+            data: ratings
+          })
+        })
+
     }
   },
   plugins: [
@@ -68,8 +102,8 @@ module.exports = new Promise((resolve, reject) => {
           messages: [`Your application is running here: http://${config.dev.host}:${port}`],
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)
