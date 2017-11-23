@@ -66,8 +66,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             data: ratings
           })
         })
-
     }
+
   },
   plugins: [
     new webpack.DefinePlugin({
