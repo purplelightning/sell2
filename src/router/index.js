@@ -5,13 +5,15 @@ import goods from 'components/goods/goods.vue'
 import ratings from 'components/ratings/ratings.vue'
 import seller from 'components/seller/seller.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass:'active',//设置激活样式
   routes: [
     {
       path:'/',
-      redirect:'App'
+      redirect:'goods'
     },
     {
       path:'/goods',
