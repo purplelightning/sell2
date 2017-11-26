@@ -19,13 +19,21 @@
             <span class="nowprice">¥ {{food.price}}</span><span class="oldprice"
                                                                 v-show="food.oldPrice">¥ {{food.oldPrice}}</span>
           </div>
-        </div>
 
-        <div class="cartcontrol-wrapper">
+          <div class="cartcontrol-wrapper">
           <cartcontrol :food="food"></cartcontrol>
         </div>
         <div class="buy" v-show="!food.count||food.count===0" @click.stop.prevent="addFirst($event)">
           加入购物车
+        </div>
+
+        </div>
+
+        <split v-show="food.info"></split>
+
+        <div class="info" v-show="food.info">
+          <h1 class="title">商品信息</h1>
+          <p class="text">{{food.info}}</p>
         </div>
 
       </div>
@@ -37,6 +45,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import cartcontrol from 'components/cartcontrol/cartcontrol'
+  import split from 'components/split/split'
   import Vue from 'vue'
 
   export default {
@@ -79,7 +88,8 @@
       }
     },
     components: {
-      cartcontrol
+      cartcontrol,
+      split
     }
 
   }
@@ -173,6 +183,18 @@
           color: white
           background: rgb(0, 160, 220)
 
+      .info
+        padding: 18px
+        .title
+          color: rgb(7, 17, 27)
+          line-height: 14px
+          font-size: 14px
+          margin-bottom: 6px
+        .text
+          margin: 0 8px
+          color: rgb(77, 85, 93)
+          line-height: 24px
+          font-size: 12px
       .cartcontrol-wrapper
         position: absolute
         right: 12px
