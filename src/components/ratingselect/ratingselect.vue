@@ -6,7 +6,7 @@
       <span @click="select(0,$event)" class="block positive" :class="{'active':innerType===0}">{{desc.positive}}<span
         class="count">{{posRating}}</span></span>
       <span @click="select(1,$event)" class="block negative" :class="{'active':innerType===1}">{{desc.negative}}<span
-        class="count">{{ratings.length-posRating}}</span></span>
+        class="count">{{ratings.length - posRating}}</span></span>
     </div>
     <div class="switch" :class="{'on':onlyContent}" @click="toggleContent">
       <span class="icon-check_circle"></span>
@@ -59,18 +59,18 @@
           return
         }
         this.innerType = type
-        this.$emit('newtype',type)
+        this.$emit('newtype', type)
       },
       toggleContent() {
 //        this.onlyContent = !this.onlyContent 不再这里直接改变
         this.$emit('contentchange')
       }
     },
-    computed:{
-      posRating(){
-        let cont=0
-        this.ratings.forEach((rating)=>{
-          if(parseInt(rating.rateType)===0){
+    computed: {
+      posRating() {
+        let cont = 0
+        this.ratings.forEach((rating) => {
+          if (parseInt(rating.rateType) === 0) {
             cont++
           }
         })
