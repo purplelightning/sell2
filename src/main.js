@@ -12,6 +12,7 @@ Vue.use(VueResource)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+// 在这里挂载根路由
 new Vue({
   el: '#app',
   router,

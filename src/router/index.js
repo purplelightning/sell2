@@ -1,15 +1,15 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import App from '../App.vue'
 import goods from 'components/goods/goods.vue'
 import ratings from 'components/ratings/ratings.vue'
 import seller from 'components/seller/seller.vue'
 
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  linkActiveClass:'active',//设置激活样式
+export default new VueRouter({
+  linkActiveClass:'active',//设置激活样式,可以省略
   routes: [
     {
       path:'/',
